@@ -6,6 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "dev": "tsc-watch --onSuccess \"node .\"",
+    "test": "echo \"Error: no test specified\" && exit 0",
     "build": "tsc",
     "prebuild": "rimraf dist/",
     "lint:fix": "eslint ./src --ext .js,.ts --quiet --fix --ignore-path ./.gitignore",
