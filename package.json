@@ -1,0 +1,61 @@
+{
+  "name": "vite-react-ssg",
+  "version": "1.0.0",
+  "description": "Vite plugin for static site generation in React",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "tsc-watch --onSuccess \"node .\"",
+    "build": "tsc",
+    "prebuild": "rimraf dist/",
+    "lint:fix": "eslint ./src --ext .js,.ts --quiet --fix --ignore-path ./.gitignore",
+    "lint:format": "prettier  --loglevel warn --write \"./**/*.{js,ts,md,json}\" ",
+    "lint": "pnpm lint:format && pnpm lint:fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/TheEngineerhub/vite-react-ssg.git"
+  },
+  "keywords": [
+    "vite",
+    "vite",
+    "ssg",
+    "vite",
+    "react",
+    "ssg",
+    "vite",
+    "react",
+    "pre-render",
+    "vite",
+    "pre-render"
+  ],
+  "author": "Alcadramin <hello@alca.dev>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TheEngineerhub/vite-react-ssg/issues"
+  },
+  "homepage": "https://github.com/TheEngineerhub/vite-react-ssg#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
+    "@types/node": "^17.0.24",
+    "@typescript-eslint/eslint-plugin": "^5.19.0",
+    "@typescript-eslint/parser": "^5.19.0",
+    "eslint": "^8.13.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "husky": "^7.0.4",
+    "pre-commit": "^1.2.2",
+    "prettier": "^2.6.2",
+    "rimraf": "^3.0.2",
+    "tsc-watch": "^5.0.3",
+    "typescript": "^4.6.3"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  }
+}
