@@ -1,0 +1,53 @@
+---
+kind: pipeline
+type: docker
+name: Default
+
+steps:
+  - name: Restore Cache
+    image: drillster/drone-volume-cache
+    volumes:
+      - name: cache
+        path: /cache
+    settings:
+      restore: true
+      mount:
+        - ./.pnpm-store
+
+  - name: Test & Build
+    image: node:current-bullseye
+    commands:
+      - curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
+      - pnpm config set store-dir .pnpm-store
+      - pnpm install
+      - pnpm test
+      - pnpm build
+    depends_on:
+      - Restore Cache
+
+  - name: Rebuild Cache
+    image: drillster/drone-volume-cache
+    volumes:
+      - name: cache
+        path: /cache
+    settings:
+      rebuild: true
+      mount:
+        - ./.pnpm-store
+    depends_on:
+      - Test & Build
+
+  - name: Deploy
+    image: alpine:latest
+    commands:
+      - echo "Will implement"
+    when:
+      event:
+        - tag
+    depends_on:
+      - Rebuild Cache
+
+volumes:
+  - name: cache
+    host:
+      path: /tmp/cache
