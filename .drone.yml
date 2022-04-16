@@ -38,14 +38,20 @@ steps:
       - Test & Build
 
   - name: Deploy
-    image: alpine:latest
+    image: node:current-bullseye
     commands:
-      - echo "Will implement"
+      - echo //registry.npmjs.org/:_authToken=$NPM_TOKEN >> .npmrc
+      - echo email=hello@alca.dev >> .npmrc
+      - echo always-auth=true >> .npmrc
+      - pnpm run release
     when:
       event:
         - tag
     depends_on:
       - Rebuild Cache
+    environment:
+      NPM_TOKEN:
+        from_secret: NPM_TOKEN
 
 volumes:
   - name: cache
