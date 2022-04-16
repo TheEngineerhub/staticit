@@ -10,11 +10,3 @@
 config.gypi
 CVS
 npm-debug.log
-tests/
-pnpm-lock.yaml
-commitlint.config.js
-.eslintrc.js
-.prettierrc
-.prettierignore
-.gitignore
-.husky/
