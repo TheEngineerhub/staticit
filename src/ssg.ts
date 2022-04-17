@@ -15,20 +15,41 @@ export class ReactSSG {
   outDir = '';
 
   constructor() {
-    this.getConfig();
     this.run();
   }
 
+  /**
+   * Reads config from file.
+   */
   getConfig() {
     try {
-      this.config = readFileSync(`${process.cwd()}/.ssg.json`, 'utf8');
+      this.config = JSON.parse(readFileSync(`${process.cwd()}/.ssg.json`, 'utf8'));
     } catch (error) {
       printMessage(error, 'error', 'Cannot read config file.');
       process.exit(0);
     }
   }
 
+  /**
+   * Parses config file sets variables with defaults.
+   */
+  parseConfig() {
+    if (this.config) {
+      this.puppeteer.launchOpts = { ...this.config.puppeteer.launchOpts } || {};
+      this.puppeteer.waitForOpts = { ...this.config.puppeteer.waitForOpts } || {};
+      this.port = this.config.port || 8080;
+      this.outDir = this.config.outDir || './dist';
+      this.routes = this.config.routes || [];
+    }
+  }
+
   async run() {
-    await startServer(this.port, this.routes, this.outDir);
+    try {
+      this.getConfig();
+      this.parseConfig();
+      await startServer(this.port, this.routes, this.outDir);
+    } catch (error) {
+      printMessage(error, 'error', 'Stack: ');
+    }
   }
 }
