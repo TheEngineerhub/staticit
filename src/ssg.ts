@@ -1,11 +1,12 @@
 import { readFileSync } from 'fs';
 
-import { staticServer } from './core/server';
+import { startServer } from './core/server';
 import { printMessage } from './utils/cli';
+import { PuppeteerOpts } from './utils/interfaces';
 
 export class ReactSSG {
   config: any = {};
-  puppeteerOpts = {};
+  options = <PuppeteerOpts>{};
   routes: string[] = [];
   port = 1818;
   outDir = '';
@@ -25,6 +26,6 @@ export class ReactSSG {
   }
 
   async run() {
-    await staticServer(this.port, this.routes, this.outDir);
+    await startServer(this.port, this.routes, this.outDir);
   }
 }
