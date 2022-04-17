@@ -2,11 +2,14 @@ import { readFileSync } from 'fs';
 
 import { startServer } from './core/server';
 import { printMessage } from './utils/cli';
-import { PuppeteerOpts } from './utils/interfaces';
+import { PuppeteerLaunchOpts, PuppeteerWaitForOpts } from './utils/interfaces';
 
 export class ReactSSG {
   config: any = {};
-  options = <PuppeteerOpts>{};
+  puppeteer = {
+    launchOpts: <PuppeteerLaunchOpts>{},
+    waitForOpts: <PuppeteerWaitForOpts>{},
+  };
   routes: string[] = [];
   port = 1818;
   outDir = '';

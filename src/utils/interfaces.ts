@@ -3,15 +3,18 @@ import {
   BrowserLaunchArgumentOptions,
   LaunchOptions,
   Product,
+  WaitForOptions,
 } from 'puppeteer';
 
 interface IPuppeteerOpts {
-  options: LaunchOptions &
+  launchOpts: LaunchOptions &
     BrowserLaunchArgumentOptions &
     BrowserConnectOptions & {
       product?: Product;
       extraPrefsFirefox?: Record<string, unknown>;
     };
+  waitForOpts: WaitForOptions;
 }
 
-export type PuppeteerOpts = IPuppeteerOpts['options'];
+export type PuppeteerLaunchOpts = IPuppeteerOpts['launchOpts'];
+export type PuppeteerWaitForOpts = IPuppeteerOpts['waitForOpts'];
