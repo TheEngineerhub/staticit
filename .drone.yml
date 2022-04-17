@@ -14,16 +14,40 @@ steps:
       mount:
         - ./.pnpm-store
 
-  - name: Test & Build
+  - name: Install Dependencies
     image: node:current-bullseye
     commands:
       - curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
       - pnpm config set store-dir .pnpm-store
       - pnpm install
+    depends_on:
+      - Restore Cache
+
+  - name: Test & Build
+    image: node:current-bullseye
+    commands:
+      - curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
       - pnpm test
       - pnpm build
     depends_on:
-      - Restore Cache
+      - Install Dependencies
+
+  - name: Deploy
+    image: node:current-bullseye
+    commands:
+      - curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
+      - echo //registry.npmjs.org/:_authToken=$NPM_TOKEN >> .npmrc
+      - echo email=hello@alca.dev >> .npmrc
+      - echo always-auth=true >> .npmrc
+      - pnpm run release
+    when:
+      event:
+        - tag
+    depends_on:
+      - Test & Build
+    environment:
+      NPM_TOKEN:
+        from_secret: NPM_TOKEN
 
   - name: Rebuild Cache
     image: drillster/drone-volume-cache
@@ -35,23 +59,7 @@ steps:
       mount:
         - ./.pnpm-store
     depends_on:
-      - Test & Build
-
-  - name: Deploy
-    image: node:current-bullseye
-    commands:
-      - echo //registry.npmjs.org/:_authToken=$NPM_TOKEN >> .npmrc
-      - echo email=hello@alca.dev >> .npmrc
-      - echo always-auth=true >> .npmrc
-      - pnpm run release
-    when:
-      event:
-        - tag
-    depends_on:
-      - Rebuild Cache
-    environment:
-      NPM_TOKEN:
-        from_secret: NPM_TOKEN
+      - Install Dependencies
 
 volumes:
   - name: cache
