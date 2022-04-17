@@ -7,7 +7,7 @@ import { PuppeteerLaunchOpts, PuppeteerWaitForOpts } from '../utils/interfaces';
 
 /**
  * Reads HTML page.
- * @param {Browser} browser Puppeteer browser instance.
+ * @param {Browser} browser Puppeteer browser instance
  * @param {string} url
  * @param {object} opts Puppeteer goto options
  * @returns HTML page.
@@ -55,8 +55,8 @@ const createHTML = async (route: string, html: string, path: string): Promise<vo
 
 /**
  * Starts puppeteer instance and generates HTML pages.
- * @param {string} url
- * @param {string} routes
+ * @param {string} url nanoexpress server URL.
+ * @param {string[]} routes Array of routes to generate.
  * @param {string} outDir Output directory
  * @param {object} launchOpts Puppeteer launch options
  * @param {object} waitForOpts Puppeteer goto options
