@@ -4,7 +4,7 @@ import { startServer } from './core/server';
 import { printMessage } from './utils/cli';
 import { PuppeteerLaunchOpts, PuppeteerWaitForOpts } from './utils/interfaces';
 
-export class ReactSSG {
+export class Staticit {
   config: any = {};
   puppeteer = {
     launchOpts: <PuppeteerLaunchOpts>{},
@@ -31,7 +31,7 @@ export class ReactSSG {
   }
 
   /**
-   * Parses config sets variables with defaults.
+   * Parses config and sets variables with defaults.
    */
   parseConfig() {
     if (this.config) {
@@ -45,7 +45,7 @@ export class ReactSSG {
 
   async run() {
     try {
-      printMessage('Starting React SSG.', 'info');
+      printMessage('Starting static-it.', 'info');
       this.getConfig();
       this.parseConfig();
       await startServer(this.port, this.routes, this.outDir);

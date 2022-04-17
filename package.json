@@ -1,7 +1,7 @@
 {
-  "name": "react-ssg",
+  "name": "staticit",
   "version": "1.0.0",
-  "description": "Simple, zero config and fast solution for static site generation in React.",
+  "description": "Simple, zero-configuration and fast solution for static site generation in any front-end framework.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "engines": {
@@ -19,13 +19,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/TheEngineerhub/react-ssg.git"
+    "url": "git+ssh://git@github.com/TheEngineerhub/staticit.git"
   },
   "keywords": [
     "react",
     "react-ssg",
     "react-prerender",
+    "vue",
+    "vue-ssg",
+    "vue-prerender",
     "react static site generator",
+    "vue static site generator",
+    "static site generator",
+    "static site generation",
     "prerender",
     "ssg",
     "nanoexpress",
@@ -34,9 +40,9 @@
   "author": "Alcadramin <hello@alca.dev>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/TheEngineerhub/react-ssg/issues"
+    "url": "https://github.com/TheEngineerhub/staticit/issues"
   },
-  "homepage": "https://github.com/TheEngineerhub/react-ssg#readme",
+  "homepage": "https://github.com/TheEngineerhub/staticit#readme",
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/engineerhub"

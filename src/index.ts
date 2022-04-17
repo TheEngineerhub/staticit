@@ -1,3 +1,3 @@
-import { ReactSSG } from './ssg';
+import { Staticit } from './ssg';
 
-export default new ReactSSG();
+export default new Staticit();
