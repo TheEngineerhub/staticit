@@ -10,9 +10,9 @@ export class ReactSSG {
     launchOpts: <PuppeteerLaunchOpts>{},
     waitForOpts: <PuppeteerWaitForOpts>{},
   };
+  port = 8080;
   routes: string[] = [];
-  port = 1818;
-  outDir = '';
+  outDir = './dist';
 
   constructor() {
     this.run();
@@ -31,7 +31,7 @@ export class ReactSSG {
   }
 
   /**
-   * Parses config file sets variables with defaults.
+   * Parses config sets variables with defaults.
    */
   parseConfig() {
     if (this.config) {
@@ -45,6 +45,7 @@ export class ReactSSG {
 
   async run() {
     try {
+      printMessage('Starting React SSG.', 'info');
       this.getConfig();
       this.parseConfig();
       await startServer(this.port, this.routes, this.outDir);

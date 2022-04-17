@@ -15,10 +15,10 @@ export const printMessage = (msg: any, type: MessageType, errorSummary?: string)
       console.log(`${chalk.black.bgRed.bold('  ERROR  ')} ${errorSummary}\n`);
       throw new Error(msg);
     case 'success':
-      console.log(`${chalk.black.bgGreen.bold(' SUCCESS ')} ${msg}`);
+      console.log(`${chalk.black.bgGreen.bold(' SUCCESS ')} ${msg}\n`);
       break;
     case 'info':
-      console.log(`${chalk.black.bgCyanBright.bold(' LOADING ')} ${msg}`);
+      console.log(`${chalk.black.bgCyanBright.bold(' LOADING ')} ${msg}\n`);
       break;
     default:
       break;

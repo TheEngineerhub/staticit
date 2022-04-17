@@ -13,6 +13,7 @@ export const startServer = async (port: number, routes: string[], dir: string) =
   try {
     const app = nanoexpress();
     const resolvePath = resolve(dir);
+
     routes.map(route => {
       app.get(route, (req, res) => {
         res.sendFile(`${resolvePath}/index.html`);

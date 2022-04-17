@@ -23,7 +23,7 @@ const getHTML = async (
     await page.goto(url, Object.assign({ waitUntil: 'networkidle0' }, opts));
     const html = await page.content();
 
-    if (!html) return;
+    if (!html) return undefined;
 
     return html;
   } catch (error) {
@@ -72,15 +72,14 @@ export const startPuppeteer = async (
 
   for (const route of routes) {
     try {
-      printMessage(`Processing route ${route}`, 'info');
+      printMessage(`Processing route ${route}.`, 'info');
       const html = await getHTML(browser, `${url}${route}`, waitForOpts);
+
       if (html) {
         createHTML(route, html, outDir);
-      } else {
-        return;
       }
     } catch (error) {
-      printMessage(error, 'error', `Error while processing route ${route}`);
+      printMessage(error, 'error', `Error while processing route ${route}.`);
     }
   }
 
