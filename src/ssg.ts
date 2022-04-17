@@ -19,7 +19,7 @@ export class ReactSSG {
     try {
       this.config = readFileSync(`${process.cwd()}/.ssg.json`, 'utf8');
     } catch (error) {
-      printMessage(error, 'error');
+      printMessage(error, 'error', 'Cannot read config file.');
       process.exit(0);
     }
   }

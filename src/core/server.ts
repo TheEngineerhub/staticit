@@ -16,6 +16,6 @@ export const staticServer = async (port: number, routes: string[], dir: string) 
     await app.listen(port);
     printMessage(`Static server is running.`, 'success');
   } catch (error) {
-    printMessage(error, 'error');
+    printMessage(error, 'error', 'Cannot start static server.');
   }
 };
