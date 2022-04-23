@@ -1,6 +1,6 @@
 {
   "routes": ["/", "/about"],
-  "outDir": "./build",
+  "outDir": "./dist",
   "port": 8080,
   "puppeteer": {
     "launchOpts": {

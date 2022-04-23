@@ -1,4 +1,4 @@
-import * as nanoexpress from 'nanoexpress';
+import { App, Cluster, sendFile } from '@sifrr/server';
 import { resolve } from 'path';
 
 import { printMessage } from '../utils/cli';
@@ -9,18 +9,26 @@ import { printMessage } from '../utils/cli';
  * @param {string[]} routes Routes
  * @param {string} dir Path to entry for serve files.
  */
-export const startServer = async (port: number, routes: string[], dir: string) => {
+export const startServer = async (port: number, routes: string[], dir: string): Promise<void> => {
   try {
-    const app = nanoexpress();
+    const app = new App();
     const resolvePath = resolve(dir);
+    const cluster = new Cluster([
+      {
+        app: app,
+        port: port,
+      },
+    ]);
 
-    routes.map(route => {
+    // @ts-ignore
+    app.folder('/', resolvePath);
+    routes.forEach(route => {
       app.get(route, (req, res) => {
-        res.sendFile(`${resolvePath}/index.html`);
+        sendFile(req, res, `${resolvePath}/index.html`, {});
       });
     });
 
-    await app.listen(port);
+    cluster.listen();
     printMessage(`Static server is running.`, 'success');
   } catch (error) {
     printMessage(error, 'error', 'Cannot start static server.');

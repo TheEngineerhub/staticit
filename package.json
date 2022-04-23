@@ -1,18 +1,21 @@
 {
   "name": "staticit",
   "version": "1.0.0",
-  "description": "Simple, zero-configuration and fast solution for static site generation in any front-end framework.",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "description": "Minimal, zero-configuration and fast solution for static site generation in any front-end framework.",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "bin": {
+    "staticit": "dist/index.js"
+  },
   "engines": {
     "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
   },
   "scripts": {
     "dev": "tsc-watch --onSuccess \"node .\"",
     "test": "echo \"Error: no test specified\" && exit 0",
-    "build": "tsc",
     "prebuild": "rimraf dist/",
-    "lint:fix": "eslint ./src --ext .js,.ts --quiet --fix --ignore-path ./.gitignore",
+    "build": "rollup -c",
+    "lint:fix": "eslint ./src --ext .js,.ts --quiet --fix",
     "lint:format": "prettier  --loglevel warn --write \"./**/*.{js,ts,md,json}\" ",
     "lint": "pnpm lint:format && pnpm lint:fix",
     "release": "standard-version"
@@ -34,7 +37,8 @@
     "static site generation",
     "prerender",
     "ssg",
-    "nanoexpress",
+    "sifrr",
+    "uwebsockets",
     "puppeteer"
   ],
   "author": "Alcadramin <hello@alca.dev>",
@@ -50,26 +54,43 @@
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
+    "@types/jest": "^27.4.1",
     "@types/node": "^17.0.24",
+    "@types/serve-static": "^1.13.10",
+    "@types/shelljs": "^0.8.11",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
+    "esbuild": "^0.14.38",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.1.4",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
+    "finalhandler": "^1.2.0",
     "husky": "^7.0.4",
+    "jest": "^27.5.1",
+    "jest-puppeteer": "^6.1.0",
     "pre-commit": "^1.2.2",
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
+    "rollup": "^2.70.2",
+    "rollup-plugin-dts": "^4.2.1",
+    "rollup-plugin-esbuild": "^4.9.1",
+    "serve-static": "^1.15.0",
+    "shelljs": "^0.8.5",
     "standard-version": "^9.3.2",
+    "ts-jest": "^27.1.4",
     "tsc-watch": "^5.0.3",
     "typescript": "^4.6.3"
   },
   "dependencies": {
+    "@sifrr/server": "^0.0.9",
+    "@types/finalhandler": "^1.1.1",
     "chalk": "^4.1.2",
-    "nanoexpress": "^5.2.4",
-    "puppeteer": "^13.5.2"
+    "graphql": "^16.3.0",
+    "puppeteer": "^13.5.2",
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.3.0"
   },
   "husky": {
     "hooks": {

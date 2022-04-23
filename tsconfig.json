@@ -1,14 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "strict": true,
-    "outDir": "dist",
-    "rootDir": "src",
-    "sourceMap": true,
-    "allowJs": true,
-    "declaration": true,
-    "declarationMap": true
+    "lib": ["ESNext", "DOM"],
+    "module": "ESNext",
+    "target": "esnext",
+    "allowSyntheticDefaultImports": true,
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
   },
   "include": ["src"],
   "exclude": ["node_modules"]

@@ -7,7 +7,7 @@ import { printMessage } from '../utils/cli';
  * @param {string} path
  * @returns {Promise}
  */
-export const ensureDirectory = (path: string) => {
+export const ensureDirectory = (path: string): Promise<string> => {
   try {
     return mkdir(path, { recursive: true });
   } catch (error) {
@@ -20,7 +20,7 @@ export const ensureDirectory = (path: string) => {
  * @param {string} route
  * @returns {string} Full file name
  */
-export const setDefaultMIMEType = (route: string) => {
+export const setDefaultMIMEType = (route: string): string => {
   const fileName = route === '/' ? '/index' : route;
   const withMIMEType = !!fileName.match(/(.htm$|.html$|.php$)/i);
 

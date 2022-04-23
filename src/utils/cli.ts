@@ -1,4 +1,4 @@
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 
 const message = new Set(['error', 'success', 'info'] as const);
 type MessageType = typeof message extends Set<infer T> ? T : never;

@@ -1,10 +1,12 @@
-import { readFileSync } from 'fs';
+import fs from 'fs';
 
+import { startPuppeteer } from './core/puppeteer';
 import { startServer } from './core/server';
 import { printMessage } from './utils/cli';
 import { PuppeteerLaunchOpts, PuppeteerWaitForOpts } from './utils/interfaces';
 
 export class Staticit {
+  confName;
   config: any = {};
   puppeteer = {
     launchOpts: <PuppeteerLaunchOpts>{},
@@ -15,15 +17,21 @@ export class Staticit {
   outDir = './dist';
 
   constructor() {
+    this.confName = process.env.confName;
     this.run();
   }
 
   /**
    * Reads config from file.
    */
-  getConfig() {
+  private getConfig(): void {
     try {
-      this.config = JSON.parse(readFileSync(`${process.cwd()}/.ssg.json`, 'utf8'));
+      this.config = JSON.parse(
+        fs.readFileSync(
+          `${process.cwd()}/${this.confName ? this.confName : '.staticit.json'}`,
+          'utf8'
+        )
+      );
     } catch (error) {
       printMessage(error, 'error', 'Cannot read config file.');
       process.exit(0);
@@ -33,7 +41,7 @@ export class Staticit {
   /**
    * Parses config and sets variables with defaults.
    */
-  parseConfig() {
+  private parseConfig(): void {
     if (this.config) {
       this.puppeteer.launchOpts = { ...this.config.puppeteer.launchOpts } || {};
       this.puppeteer.waitForOpts = { ...this.config.puppeteer.waitForOpts } || {};
@@ -43,12 +51,21 @@ export class Staticit {
     }
   }
 
-  async run() {
+  private async run(): Promise<void> {
     try {
       printMessage('Starting static-it.', 'info');
       this.getConfig();
       this.parseConfig();
       await startServer(this.port, this.routes, this.outDir);
+      await startPuppeteer(
+        `http://localhost:${this.port}`,
+        this.routes,
+        this.outDir,
+        this.puppeteer.launchOpts,
+        this.puppeteer.waitForOpts
+      );
+      printMessage('Successfully generated static files.', 'success');
+      process.exit(0);
     } catch (error) {
       printMessage(error, 'error', 'Stack: ');
     }

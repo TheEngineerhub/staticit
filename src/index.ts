@@ -1,3 +1,3 @@
-import { Staticit } from './ssg';
+import { Staticit } from './app';
 
 export default new Staticit();

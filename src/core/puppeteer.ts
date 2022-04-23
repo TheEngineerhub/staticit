@@ -1,5 +1,5 @@
-import { writeFile } from 'node:fs/promises';
-import * as puppeteer from 'puppeteer';
+import { writeFileSync } from 'node:fs';
+import puppeteer from 'puppeteer';
 
 import { printMessage } from '../utils/cli';
 import { ensureDirectory, setDefaultMIMEType } from '../utils/helpers';
@@ -16,14 +16,12 @@ const getHTML = async (
   browser: puppeteer.Browser,
   url: string,
   opts: PuppeteerWaitForOpts
-): Promise<string | undefined> => {
+): Promise<string> => {
   try {
     const page = await browser.newPage();
 
     await page.goto(url, Object.assign({ waitUntil: 'networkidle0' }, opts));
     const html = await page.content();
-
-    if (!html) return undefined;
 
     return html;
   } catch (error) {
@@ -46,7 +44,7 @@ const createHTML = async (route: string, html: string, path: string): Promise<vo
 
     const fileName = setDefaultMIMEType(route);
 
-    await writeFile(`${path}${fileName}`, html, { encoding: 'utf8', flag: 'w' });
+    writeFileSync(`${path}${fileName}`, html, { encoding: 'utf8', flag: 'w' });
     printMessage(`Successfully created ${fileName}.`, 'success');
   } catch (error) {
     printMessage(error, 'error', `Cannot create route ${route}.`);

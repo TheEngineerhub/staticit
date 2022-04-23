@@ -2,7 +2,7 @@ module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 2021,
+    ecmaVersion: 2020,
     sourceType: 'module',
   },
   settings: {
@@ -14,12 +14,14 @@ module.exports = {
     },
   },
   env: {
-    browser: true,
-    amd: true,
+    commonjs: true,
     node: true,
+    browser: true,
+    es6: true,
+    jest: true,
   },
   extends: ['eslint:recommended', 'plugin:prettier/recommended'],
-  plugins: ['simple-import-sort', 'prettier'],
+  plugins: ['simple-import-sort', 'prettier', 'jest'],
   rules: {
     'prettier/prettier': ['error', {}, { usePrettierrc: true }],
     '@typescript-eslint/no-explicit-any': 'off', // Annoying.
