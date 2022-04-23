@@ -53,7 +53,7 @@ const createHTML = async (route: string, html: string, path: string): Promise<vo
 
 /**
  * Starts puppeteer instance and generates HTML pages.
- * @param {string} url nanoexpress server URL.
+ * @param {string} url Static server URL.
  * @param {string[]} routes Array of routes to generate.
  * @param {string} outDir Output directory
  * @param {object} launchOpts Puppeteer launch options

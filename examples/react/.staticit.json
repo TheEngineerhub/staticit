@@ -4,7 +4,8 @@
   "port": 8080,
   "puppeteer": {
     "launchOpts": {
-      "args": ["--no-sandbox"]
+      "headless": true,
+      "args": ["--no-sandbox", "--disable-setuid-sandbox"]
     }
   }
 }

@@ -4,7 +4,7 @@ import { resolve } from 'path';
 import { printMessage } from '../utils/cli';
 
 /**
- * Starts nanoexpress server.
+ * Starts sifrr server.
  * @param {number} port Port to serve
  * @param {string[]} routes Routes
  * @param {string} dir Path to entry for serve files.

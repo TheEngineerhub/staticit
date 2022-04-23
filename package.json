@@ -12,7 +12,7 @@
   },
   "scripts": {
     "dev": "tsc-watch --onSuccess \"node .\"",
-    "test": "jest",
+    "test:e2e": "jest",
     "prebuild": "rimraf dist/",
     "build": "rollup -c",
     "lint:fix": "eslint ./src --ext .js,.ts --quiet --fix",

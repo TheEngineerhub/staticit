@@ -13,6 +13,7 @@ describe('React e2e tests', () => {
   beforeAll(async () => {
     const root = resolve('examples', 'react');
     shell.cd(root);
+    shell.exec('pnpm install');
     shell.exec('pnpm build');
 
     const serve = serveStatic(`${root}/dist`, { extensions: ['html'] });
@@ -21,7 +22,10 @@ describe('React e2e tests', () => {
       serve(req, res, finalhandler(req, res));
     });
 
-    browser = await puppeteer.launch({ headless: true });
+    browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
     page = await browser.newPage();
     await server.listen(4444);
   });
