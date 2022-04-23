@@ -1,10 +1,7 @@
-import run from '@rollup/plugin-run';
 import dts from 'rollup-plugin-dts';
 import esbuild from 'rollup-plugin-esbuild';
 
 const name = require('./package.json').main.replace(/\.js$/, '');
-
-const dev = process.env.NODE_ENV === 'development';
 
 const bundle = config => ({
   ...config,
@@ -25,7 +22,7 @@ export default [
     ],
   }),
   bundle({
-    plugins: [dts(), dev && run()],
+    plugins: [dts()],
     output: {
       file: `${name}.d.ts`,
       format: 'es',

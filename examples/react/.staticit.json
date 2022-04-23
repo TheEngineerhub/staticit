@@ -1,0 +1,10 @@
+{
+  "routes": ["/", "/about"],
+  "outDir": "./dist",
+  "port": 8080,
+  "puppeteer": {
+    "launchOpts": {
+      "args": ["--no-sandbox"]
+    }
+  }
+}
