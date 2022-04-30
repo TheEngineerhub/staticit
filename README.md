@@ -14,4 +14,5 @@
 </p>
 
 #
-### Static-it - Introduction
+
+### Staticit - Introduction
