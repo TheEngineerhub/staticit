@@ -5,8 +5,8 @@ import { printMessage } from '../utils/cli';
 
 /**
  * Starts sifrr server.
- * @param {number} port Port to serve
- * @param {string[]} routes Routes
+ * @param {number} port Port to serve.
+ * @param {string[]} routes Routes.
  * @param {string} dir Path to entry for serve files.
  */
 export const startServer = async (port: number, routes: string[], dir: string): Promise<void> => {

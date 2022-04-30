@@ -88,6 +88,7 @@
     "@sifrr/server": "^0.0.9",
     "@types/finalhandler": "^1.1.1",
     "chalk": "^4.1.2",
+    "commander": "^9.2.0",
     "graphql": "^16.3.0",
     "puppeteer": "^13.5.2",
     "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.3.0"

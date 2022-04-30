@@ -1,4 +1,5 @@
 import { writeFileSync } from 'node:fs';
+import { format } from 'prettier';
 import puppeteer from 'puppeteer';
 
 import { printMessage } from '../utils/cli';
@@ -7,9 +8,9 @@ import { PuppeteerLaunchOpts, PuppeteerWaitForOpts } from '../utils/interfaces';
 
 /**
  * Reads HTML page.
- * @param {Browser} browser Puppeteer browser instance
- * @param {string} url
- * @param {object} opts Puppeteer goto options
+ * @param {Browser} browser Puppeteer browser instance.
+ * @param {string} url Page URL.
+ * @param {object} opts Puppeteer goto options.
  * @returns HTML page.
  */
 const getHTML = async (
@@ -31,20 +32,31 @@ const getHTML = async (
 
 /**
  * Creates HTML page.
- * @param {string} route
- * @param {string} html HTML page
- * @param {string} path
+ * @param {string} route Route.
+ * @param {string} html HTML page.
+ * @param {string} path File path.
  */
-const createHTML = async (route: string, html: string, path: string): Promise<void> => {
+const createHTML = async (
+  route: string,
+  html: string,
+  path: string,
+  prettify: boolean
+): Promise<void> => {
   try {
     if (route.indexOf('/') !== route.lastIndexOf('/')) {
       const subPath = route.slice(0, route.lastIndexOf('/'));
       await ensureDirectory(`${path}${subPath}`);
     }
 
+    let formatted = html;
+
+    if (!prettify) {
+      formatted = format(formatted, { parser: 'html' });
+    }
+
     const fileName = setDefaultMIMEType(route);
 
-    writeFileSync(`${path}${fileName}`, html, { encoding: 'utf8', flag: 'w' });
+    writeFileSync(`${path}${fileName}`, formatted, { encoding: 'utf8', flag: 'w' });
     printMessage(`Successfully created ${fileName}.`, 'success');
   } catch (error) {
     printMessage(error, 'error', `Cannot create route ${route}.`);
@@ -55,16 +67,17 @@ const createHTML = async (route: string, html: string, path: string): Promise<vo
  * Starts puppeteer instance and generates HTML pages.
  * @param {string} url Static server URL.
  * @param {string[]} routes Array of routes to generate.
- * @param {string} outDir Output directory
- * @param {object} launchOpts Puppeteer launch options
- * @param {object} waitForOpts Puppeteer goto options
+ * @param {string} outDir Output directory.
+ * @param {object} launchOpts Puppeteer launch options.
+ * @param {object} waitForOpts Puppeteer goto options.
  */
 export const startPuppeteer = async (
   url: string,
   routes: string[],
   outDir: string,
   launchOpts: PuppeteerLaunchOpts,
-  waitForOpts: PuppeteerWaitForOpts
+  waitForOpts: PuppeteerWaitForOpts,
+  prettify: boolean
 ): Promise<void> => {
   const browser: puppeteer.Browser = await puppeteer.launch(launchOpts);
 
@@ -74,7 +87,7 @@ export const startPuppeteer = async (
       const html = await getHTML(browser, `${url}${route}`, waitForOpts);
 
       if (html) {
-        createHTML(route, html, outDir);
+        createHTML(route, html, outDir, prettify);
       }
     } catch (error) {
       printMessage(error, 'error', `Error while processing route ${route}.`);

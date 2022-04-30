@@ -1,3 +1,4 @@
+import { program } from 'commander';
 import fs from 'fs';
 
 import { startPuppeteer } from './core/puppeteer';
@@ -8,6 +9,10 @@ import { PuppeteerLaunchOpts, PuppeteerWaitForOpts } from './utils/interfaces';
 export class Staticit {
   confName;
   config: any = {};
+  options = {
+    config: '',
+    disablePrettier: false,
+  };
   puppeteer = {
     launchOpts: <PuppeteerLaunchOpts>{},
     waitForOpts: <PuppeteerWaitForOpts>{},
@@ -17,9 +22,30 @@ export class Staticit {
   outDir = './dist';
 
   constructor() {
-    this.confName = process.env.confName;
+    this.readOpts();
+    this.confName = this.options.config || process.env.CONFIG_NAME;
     this.run();
   }
+
+  /**
+   * Reads CLI options.
+   */
+  private readOpts = (): void => {
+    program
+      .name('staticit')
+      .description(
+        'Minimal, zero-configuration and fast solution for static site generation in any front-end framework.'
+      )
+      .option('-c, --config <file>', 'Reads config from given name. Example: --config .routes.json')
+      .option(
+        '--disable-prettier',
+        'By default Staticit will prettify the generated static files. To disable it pass this option.'
+      );
+
+    program.parse(process.argv);
+
+    this.options = program.opts();
+  };
 
   /**
    * Reads config from file.
@@ -51,6 +77,9 @@ export class Staticit {
     }
   }
 
+  /**
+   * Static-it!
+   */
   private async run(): Promise<void> {
     try {
       printMessage('Starting static-it.', 'info');
@@ -62,7 +91,8 @@ export class Staticit {
         this.routes,
         this.outDir,
         this.puppeteer.launchOpts,
-        this.puppeteer.waitForOpts
+        this.puppeteer.waitForOpts,
+        this.options.disablePrettier
       );
       printMessage('Successfully generated static files.', 'success');
       process.exit(0);
