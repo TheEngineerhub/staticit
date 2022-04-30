@@ -3,21 +3,29 @@ kind: pipeline
 type: docker
 name: Default
 
+platform:
+  os: linux
+  arch: amd64
+
 steps:
   - name: Restore Cache
-    image: drillster/drone-volume-cache
+    image: meltwater/drone-cache
+    pull: true
     volumes:
       - name: cache
-        path: /cache
+        path: /tmp/cache
     settings:
+      backend: 'filesystem'
       restore: true
+      cache_key: 'volume'
+      archive_format: 'gzip'
       mount:
         - ./.pnpm-store
 
   - name: Install Dependencies
     image: node:lts-bullseye
     commands:
-      - curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
+      - npm install -g pnpm
       - pnpm config set store-dir .pnpm-store
       - pnpm install
     depends_on:
@@ -27,19 +35,23 @@ steps:
     image: node:lts-bullseye
     commands:
       - apt update > /dev/null && apt -y install libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libgbm1 libasound2 libpangocairo-1.0-0 libxss1 libgtk-3-0 > /dev/null
-      - curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
+      - npm install -g pnpm
       - pnpm build
       - pnpm test:e2e
     depends_on:
       - Install Dependencies
 
   - name: Rebuild Cache
-    image: drillster/drone-volume-cache
+    image: meltwater/drone-cache
+    pull: true
     volumes:
       - name: cache
-        path: /cache
+        path: /tmp/cache
     settings:
+      backend: 'filesystem'
       rebuild: true
+      cache_key: 'volume'
+      archive_format: 'gzip'
       mount:
         - ./.pnpm-store
     depends_on:
