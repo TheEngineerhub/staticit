@@ -26,6 +26,7 @@ describe('React e2e tests', () => {
       headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
+
     page = await browser.newPage();
     await server.listen(4444);
   });

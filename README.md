@@ -65,16 +65,20 @@ Create a file called [`.staticit.json`](.staticit.json) in your project root dir
 {
   "routes": ["/", "/about"],
   "outDir": "./dist",
-  "port": 8080,
-  "puppeteer": {
-    "launchOpts": {
-      "args": ["--no-sandbox"]
-    }
-  }
+  "port": 8080
 }
 ```
 
 > <img src="https://storage.googleapis.com/engineerhub-static/exclamation-yellow.png" height="15" width="auto" /> - If you are going to build your application in an automated environment, for example with a CI tool. You should pass the `--no-sandbox` flag to `puppeteer: launchOpts` or you might get errors since most of them are running inside of a container with root user. [(Ref)](https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#setting-up-chrome-linux-sandbox)
+
+- Then add a postbuild step to your [`package.json`](package.json).
+
+```json
+"scripts": {
+  ...
+  "postbuild": "staticit"
+}
+```
 
 #
 
