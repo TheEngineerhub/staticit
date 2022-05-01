@@ -1,6 +1,6 @@
 # Staticit - React Example
 
-After creating the `.staticit.json` and your desired routes. Just add the rehydration steps to your React app.
+After creating the [`.staticit.json`](.staticit.json) with your desired routes. Just add the rehydration steps to your React app.
 
 - [main.tsx](src/main.tsx) - (React 18)
 

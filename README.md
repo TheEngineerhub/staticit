@@ -17,23 +17,25 @@
 
 ### Staticit - Introduction
 
-Whether you want to increase performance or improve SEO of your web application. You have generally 2 options, use **SSR** (Server Side Rendering) or **SSG** (Static Site Generation). SSR can be cumbersome and you will need an actual server with lots of configurations depending of your application.
+Whether you want to increase performance of your web application or improve SEO. Generally you have 2 options, use **SSR** (Server Side Rendering) or **SSG** (Static Site Generation). SSR can be cumbersome and you will need a server to host it.
 
-SSG is relatively simple and a good alternative. Some frameworks has this feature out of the box some are not, some are bloat and you will want a simpler solution. **Here comes the Staticit!**.
+SSG is relatively simple and a good alternative. Some frameworks have this feature out of the box some don't, some are bloated and you may want a simpler solution. **Here comes the Staticit!**
 
 Staticit is a improved version of a small library called [react-spa-prerender](https://github.com/sPavl0v/react-spa-prenderer). Under the hood it uses [sifrr](https://sifrr.github.io/sifrr/#/) and [puppeteer](https://github.com/puppeteer/puppeteer) to generate static files.
 
-It will work with any build tool since it's independent and with any frontend framework that supports routing.
+Since it's standalone it will work with any build tool and any front-end framework that supports routing.
 
 > How it works?
 
 - Serves the web application from build directory with **sifrr**.
-- Renders desired routes with **puppeteer**.
+- Renders & generates desired routes with **puppeteer**.
 - Reformats all generated HTML files with **prettier** so they'll be pretty 🥰.
 
 #
 
 ### Install
+
+> <img src="https://storage.googleapis.com/engineerhub-static/exclamation-yellow.png" height="15" width="auto" /> - Latest **LTS Node.js** is recommended.
 
 - With npm:
 
@@ -57,7 +59,7 @@ $ pnpm install -D staticit
 
 ### Usage
 
-Create a file called [`.staticit.json`](.staticit.json) in your projects root directory. For minimal configuration add the following lines.
+Create a file called [`.staticit.json`](.staticit.json) in your project root directory. For minimal configuration add the following lines.
 
 ```json
 {
@@ -72,19 +74,30 @@ Create a file called [`.staticit.json`](.staticit.json) in your projects root di
 }
 ```
 
-> <img src="https://storage.googleapis.com/engineerhub-static/exclamation-yellow.png" height="15" width="auto" /> - If you are going to build your application in an automated environment, for example with a CI tool. You should pass the `--no-sandbox` flag to `puppeteer: launchOpts.` or you might get errors since most of them are running inside of a container with root user.
+> <img src="https://storage.googleapis.com/engineerhub-static/exclamation-yellow.png" height="15" width="auto" /> - If you are going to build your application in an automated environment, for example with a CI tool. You should pass the `--no-sandbox` flag to `puppeteer: launchOpts` or you might get errors since most of them are running inside of a container with root user. [(Ref)](https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#setting-up-chrome-linux-sandbox)
+
+#
+
+### References
+
+> JSON Reference
+
+| Option                 | Default  | Description                                                                         |
+| ---------------------- | -------- | ----------------------------------------------------------------------------------- |
+| routes                 | `[]`     | Array of routes that you want to pre-render & generate static files.                |
+| outDir                 | `./dist` | Relative path to the build directory of your application.                           |
+| port                   | `8080`   | The port where the static server will serve your web application for the puppeteer. |
+| puppeteer: launchOpts  | `{}`     | Generic launch options that can be passed when launching puppeteer browser.         |
+| puppeteer: waitForOpts | `{}`     | Timeout options for puppeteer browser.                                              |
 
 --
 
-The options are self explanatory.
+> CLI Reference
 
-| Option                 | Default  | Description                                                                 |
-| ---------------------- | -------- | --------------------------------------------------------------------------- |
-| routes                 | `[]`     | Array of routes that you want to pre-render & generate static files.        |
-| outDir                 | `./dist` | Relative path to the build directory of your application.                   |
-| port                   | `8080`   | Port where static server will listen and generate the static files.         |
-| puppeteer: launchOpts  | `{}`     | Generic launch options that can be passed when launching puppeteer browser. |
-| puppeteer: waitForOpts | `{}`     | Timeout options for puppeteer browser                                       |
+| Option             | Description                                   |
+| ------------------ | --------------------------------------------- |
+| --disable-prettier | Disables formatting HTML files with prettier. |
+| -c, --config       | To use with different config file name.       |
 
 #
 

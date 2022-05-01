@@ -9,16 +9,12 @@ platform:
 
 steps:
   - name: Restore Cache
-    image: meltwater/drone-cache
-    pull: true
+    image: drillster/drone-volume-cache
     volumes:
-      - name: cache
-        path: /tmp/cache
+      - name: ci-cache
+        path: /ci-cache
     settings:
-      backend: 'filesystem'
       restore: true
-      cache_key: 'volume'
-      archive_format: 'gzip'
       mount:
         - ./.pnpm-store
 
@@ -42,22 +38,18 @@ steps:
       - Install Dependencies
 
   - name: Rebuild Cache
-    image: meltwater/drone-cache
-    pull: true
+    image: drillster/drone-volume-cache
     volumes:
-      - name: cache
-        path: /tmp/cache
+      - name: ci-cache
+        path: /ci-cache
     settings:
-      backend: 'filesystem'
       rebuild: true
-      cache_key: 'volume'
-      archive_format: 'gzip'
       mount:
         - ./.pnpm-store
     depends_on:
       - Install Dependencies
 
 volumes:
-  - name: cache
+  - name: ci-cache
     host:
-      path: /tmp/cache
+      path: /tmp/ci-cache
