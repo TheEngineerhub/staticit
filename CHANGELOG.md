@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/TheEngineerhub/staticit/compare/v1.0.0...v1.1.0) (2022-05-01)
+
+### Features
+
+- updated docs & ci pipeline ([794db39](https://github.com/TheEngineerhub/staticit/commit/794db3971d6bfb325cdd8748fc5af6a09453df85))
+
 ## 1.0.0 (2022-04-30)
 
 ### Features
