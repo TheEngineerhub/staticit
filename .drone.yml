@@ -11,8 +11,8 @@ steps:
   - name: Restore Cache
     image: drillster/drone-volume-cache
     volumes:
-      - name: ci-cache
-        path: /ci-cache
+      - name: cache
+        path: /cache
     settings:
       restore: true
       mount:
@@ -40,8 +40,8 @@ steps:
   - name: Rebuild Cache
     image: drillster/drone-volume-cache
     volumes:
-      - name: ci-cache
-        path: /ci-cache
+      - name: cache
+        path: /cache
     settings:
       rebuild: true
       mount:
@@ -50,6 +50,6 @@ steps:
       - Install Dependencies
 
 volumes:
-  - name: ci-cache
+  - name: cache
     host:
-      path: /tmp/ci-cache
+      path: /tmp/cache
