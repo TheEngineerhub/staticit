@@ -18,6 +18,7 @@ export default [
         file: `${name}.js`,
         format: 'cjs',
         exports: 'named',
+        banner: '#!/usr/bin/env node',
       },
     ],
   }),

@@ -69,9 +69,15 @@ export class Staticit {
    */
   private parseConfig(): void {
     if (this.config) {
-      this.puppeteer.launchOpts = { ...this.config.puppeteer.launchOpts } || {};
-      this.puppeteer.waitForOpts = { ...this.config.puppeteer.waitForOpts } || {};
-      this.port = this.config.port || 8080;
+      if (this.config.puppeteer) {
+        this.puppeteer.launchOpts = { ...this.config.puppeteer.launchOpts };
+        this.puppeteer.waitForOpts = { ...this.config.puppeteer.waitForOpts };
+      }
+      if (Number.isNaN(parseInt(this.config.port))) {
+        printMessage('Port should be a number, using default port 8080.', 'info');
+      } else {
+        this.port = +this.config.port;
+      }
       this.outDir = this.config.outDir || './dist';
       this.routes = this.config.routes || [];
     }
