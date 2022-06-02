@@ -42,7 +42,6 @@ specifiers:
   uWebSockets.js: github:uNetworking/uWebSockets.js#v20.3.0
 
 dependencies:
-  '@rollup/plugin-json': 4.1.0_rollup@2.75.5
   '@sifrr/server': 0.0.9_mlxxcxhnrmn7am6n27i43kvq7y
   chalk: 4.1.2
   commander: 9.3.0
@@ -53,6 +52,7 @@ dependencies:
 devDependencies:
   '@commitlint/cli': 16.3.0
   '@commitlint/config-conventional': 16.2.4
+  '@rollup/plugin-json': 4.1.0_rollup@2.75.5
   '@types/finalhandler': 1.1.1
   '@types/jest': 27.5.2
   '@types/node': 17.0.38
@@ -902,7 +902,7 @@ packages:
     dependencies:
       '@rollup/pluginutils': 3.1.0_rollup@2.75.5
       rollup: 2.75.5
-    dev: false
+    dev: true
 
   /@rollup/pluginutils/3.1.0_rollup@2.75.5:
     resolution: {integrity: sha512-GksZ6pr6TpIjHm8h9lSQ8pi8BE9VeubNT0OMJ3B5uZJ8pz73NPiqOtCog/x2/QzM1ENChPKxMDhiQuRHsqc+lg==}
@@ -914,7 +914,7 @@ packages:
       estree-walker: 1.0.1
       picomatch: 2.3.1
       rollup: 2.75.5
-    dev: false
+    dev: true
 
   /@rollup/pluginutils/4.2.1:
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
@@ -1017,7 +1017,7 @@ packages:
 
   /@types/estree/0.0.39:
     resolution: {integrity: sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==}
-    dev: false
+    dev: true
 
   /@types/finalhandler/1.1.1:
     resolution: {integrity: sha512-fT+Qs+kczrGnY9EpJpFHbdfdyKSoHUCKo3gJYbDWSSQFc18Td87AelfhMM8zqHRcP97/tk8AijV2zSUdClJK+Q==}
@@ -2766,7 +2766,7 @@ packages:
 
   /estree-walker/1.0.1:
     resolution: {integrity: sha512-1fMXF3YP4pZZVozF8j/ZLfvnR8NSIljt56UhbZ5PeeDmmGHpgpdwQt7ITlGvYaQukCvuBRMLEiKiYC+oeIg4cg==}
-    dev: false
+    dev: true
 
   /estree-walker/2.0.2:
     resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
@@ -5260,6 +5260,7 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.2
+    dev: true
 
   /run-parallel/1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
