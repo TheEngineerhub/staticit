@@ -1,6 +1,7 @@
 import { program } from 'commander';
 import fs from 'fs';
 
+import { version } from '../package.json';
 import { startPuppeteer } from './core/puppeteer';
 import { startServer } from './core/server';
 import { printMessage } from './utils/cli';
@@ -88,7 +89,7 @@ export class Staticit {
    */
   private async run(): Promise<void> {
     try {
-      printMessage('Starting static-it.', 'info');
+      printMessage(`Starting static-it. Ver: ${version}`, 'info');
       this.getConfig();
       this.parseConfig();
       await startServer(this.port, this.routes, this.outDir);

@@ -1,3 +1,4 @@
+import json from '@rollup/plugin-json';
 import dts from 'rollup-plugin-dts';
 import esbuild from 'rollup-plugin-esbuild';
 
@@ -12,7 +13,7 @@ const bundle = config => ({
 export default [
   bundle({
     treeshake: true,
-    plugins: [esbuild()],
+    plugins: [esbuild(), json()],
     output: [
       {
         file: `${name}.js`,
