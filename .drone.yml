@@ -49,6 +49,12 @@ steps:
     depends_on:
       - Install Dependencies
 
+trigger:
+  branch:
+  - main
+  event:
+  - push
+
 volumes:
   - name: cache
     host:
