@@ -3,7 +3,7 @@
 </p>
 <p align="center">
   <a href="https://github.com/TheEngineerhub/staticit/actions/workflows/build.yml" target="_blank">
-    <img src="https://github.com/TheEngineerhub/staticit/actions/workflows/build.yml/badge.svg" alt="Build Status"/>
+    <img src="https://github.com/TheEngineerhub/staticit/actions/workflows/build.yml/badge.svg?branch=main" alt="Build Status"/>
   </a>
   <a href="https://github.com/TheEngineerhub/staticit/issues" target="_blank">
     <img src="https://img.shields.io/github/issues/TheEngineerhub/staticit" />
@@ -21,13 +21,13 @@ Whether you want to increase performance of your web application or improve SEO.
 
 SSG is relatively simple and a good alternative. Some frameworks have this feature out of the box some don't, some are bloated and you may want a simpler solution. **Here comes the Staticit!**
 
-Staticit is a improved version of a small library called [react-spa-prerender](https://github.com/sPavl0v/react-spa-prenderer). Under the hood it uses [sifrr](https://sifrr.github.io/sifrr/#/) and [puppeteer](https://github.com/puppeteer/puppeteer) to generate static files.
+Staticit is a improved version of a small library called [react-spa-prerender](https://github.com/sPavl0v/react-spa-prenderer). Under the hood it uses [express](https://expressjs.com/) and [puppeteer](https://github.com/puppeteer/puppeteer) to generate static files.
 
 Since it's standalone it will work with any build tool and any front-end framework that supports routing.
 
 > How it works?
 
-- Serves the web application from build directory with **sifrr**.
+- Serves the web application from build directory with **express**.
 - Renders & generates desired routes with **puppeteer**.
 - Reformats all generated HTML files with **prettier** so they'll be pretty 🥰.
 
