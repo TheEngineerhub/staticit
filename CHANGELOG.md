@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/TheEngineerhub/staticit/compare/v1.1.3...v1.2.0) (2022-06-11)
+
+
+### Features
+
+* switch to express backend ([a3664f2](https://github.com/TheEngineerhub/staticit/commit/a3664f24f011d1b65807a77bb6b142a86d90fdae))
+* updated readme ([0a5c0c9](https://github.com/TheEngineerhub/staticit/commit/0a5c0c986d10b26a6ccff04ed4993cee86753652))
+
 ### [1.1.3](https://github.com/TheEngineerhub/staticit/compare/v1.1.1...v1.1.3) (2022-06-02)
 
 
