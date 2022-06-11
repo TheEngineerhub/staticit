@@ -5,7 +5,7 @@ name: Default
 
 platform:
   os: linux
-  arch: amd64
+  arch: ard64
 
 steps:
   - name: Restore Cache
@@ -51,9 +51,9 @@ steps:
 
 trigger:
   branch:
-  - main
+    - main
   event:
-  - push
+    - push
 
 volumes:
   - name: cache

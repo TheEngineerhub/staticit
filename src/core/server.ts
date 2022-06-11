@@ -1,4 +1,4 @@
-import { App, Cluster, sendFile } from '@sifrr/server';
+import express, { Request, Response } from 'express';
 import { resolve } from 'path';
 
 import { printMessage } from '../utils/cli';
@@ -11,25 +11,19 @@ import { printMessage } from '../utils/cli';
  */
 export const startServer = async (port: number, routes: string[], dir: string): Promise<void> => {
   try {
-    const app = new App();
+    const app = express();
     const resolvePath = resolve(dir);
-    const cluster = new Cluster([
-      {
-        app: app,
-        port: port,
-      },
-    ]);
+    app.use(express.static(resolvePath));
 
-    // @ts-ignore
-    app.folder('/', resolvePath);
-    routes.forEach(route => {
-      app.get(route, (req, res) => {
-        sendFile(req, res, `${resolvePath}/index.html`, {});
+    for (const route of routes) {
+      app.get(route, (req: Request, res: Response) => {
+        res.sendFile(`${resolvePath}/index.html`);
       });
-    });
+    }
 
-    cluster.listen();
-    printMessage(`Static server is running.`, 'success');
+    app.listen(port, '0.0.0.0', () => {
+      printMessage(`Static server is running.`, 'success');
+    });
   } catch (error) {
     printMessage(error, 'error', 'Cannot start static server.');
   }
