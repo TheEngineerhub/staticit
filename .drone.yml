@@ -5,7 +5,7 @@ name: Default
 
 platform:
   os: linux
-  arch: ard64
+  arch: amd64
 
 steps:
   - name: Restore Cache
@@ -16,13 +16,13 @@ steps:
     settings:
       restore: true
       mount:
-        - ./.pnpm-store
+        - ~/pnpm/.pnpm-store
 
   - name: Install Dependencies
     image: node:lts-bullseye
     commands:
       - npm install -g pnpm
-      - pnpm config set store-dir .pnpm-store
+      - pnpm config set store-dir ~/pnpm/.pnpm-store
       - pnpm install
     depends_on:
       - Restore Cache
@@ -45,7 +45,7 @@ steps:
     settings:
       rebuild: true
       mount:
-        - ./.pnpm-store
+        - ~/pnpm/.pnpm-store
     depends_on:
       - Install Dependencies
 
