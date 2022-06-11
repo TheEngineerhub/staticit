@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/TheEngineerhub/staticit/compare/v1.2.0...v1.2.1) (2022-06-11)
+
+
+### Features
+
+* move prettier to dependencies ([f0af8f7](https://github.com/TheEngineerhub/staticit/commit/f0af8f74395342f7d4f5ba199e2e8f4f785e1d6d))
+
 ## [1.2.0](https://github.com/TheEngineerhub/staticit/compare/v1.1.3...v1.2.0) (2022-06-11)
 
 
