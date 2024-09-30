@@ -11,7 +11,7 @@ export const ensureDirectory = (path: string): Promise<string> => {
   try {
     return mkdir(path, { recursive: true });
   } catch (error) {
-    printMessage(error, 'error', `Cannot create directory ${path}`);
+    printMessage(`Cannot create directory ${path}`, 'error', error);
   }
 };
 

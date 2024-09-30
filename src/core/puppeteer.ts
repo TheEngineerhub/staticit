@@ -1,10 +1,14 @@
+import puppeteer, { Browser } from 'puppeteer';
 import { writeFileSync } from 'node:fs';
 import { format } from 'prettier';
-import puppeteer from 'puppeteer';
+import fs from 'node:fs';
 
-import { printMessage } from '../utils/cli';
+import { printMessage, stopSpinner } from '../utils/cli';
 import { ensureDirectory, setDefaultMIMEType } from '../utils/helpers';
 import { PuppeteerLaunchOpts, PuppeteerWaitForOpts } from '../utils/interfaces';
+
+type RouteInfo = { route: string; size: number };
+const generatedRoutes: RouteInfo[] = [];
 
 /**
  * Reads HTML page.
@@ -14,19 +18,18 @@ import { PuppeteerLaunchOpts, PuppeteerWaitForOpts } from '../utils/interfaces';
  * @returns HTML page.
  */
 const getHTML = async (
-  browser: puppeteer.Browser,
+  browser: Browser,
   url: string,
   opts: PuppeteerWaitForOpts
-): Promise<string> => {
+): Promise<string | null> => {
   try {
     const page = await browser.newPage();
-
-    await page.goto(url, Object.assign({ waitUntil: 'networkidle0' }, opts));
+    await page.goto(url, { waitUntil: 'networkidle0', ...opts });
     const html = await page.content();
 
     return html;
   } catch (error) {
-    printMessage(error, 'error', `Cannot read URL ${url}.`);
+    printMessage(`Cannot read URL ${url}.`, 'error', error);
   }
 };
 
@@ -35,6 +38,7 @@ const getHTML = async (
  * @param {string} route Route.
  * @param {string} html HTML page.
  * @param {string} path File path.
+ * @param {boolean} prettify Whether to prettify HTML.
  */
 const createHTML = async (
   route: string,
@@ -43,7 +47,7 @@ const createHTML = async (
   prettify: boolean
 ): Promise<void> => {
   try {
-    if (route.indexOf('/') !== route.lastIndexOf('/')) {
+    if (route.includes('/') && route.lastIndexOf('/') !== 0) {
       const subPath = route.slice(0, route.lastIndexOf('/'));
       await ensureDirectory(`${path}${subPath}`);
     }
@@ -51,15 +55,18 @@ const createHTML = async (
     let formatted = html;
 
     if (!prettify) {
-      formatted = format(formatted, { parser: 'html' });
+      formatted = await format(formatted, { parser: 'html' });
     }
 
     const fileName = setDefaultMIMEType(route);
+    const filePath = `${path}${fileName}`;
+    writeFileSync(filePath, formatted, { encoding: 'utf8', flag: 'w' });
 
-    writeFileSync(`${path}${fileName}`, formatted, { encoding: 'utf8', flag: 'w' });
-    printMessage(`Successfully created ${fileName}.`, 'success');
+    const stats = fs.statSync(filePath);
+    const fileSizeInKB = (stats.size / 1024).toFixed(2);
+    generatedRoutes.push({ route: fileName, size: parseFloat(fileSizeInKB) });
   } catch (error) {
-    printMessage(error, 'error', `Cannot create route ${route}.`);
+    printMessage(`Cannot create HTML for ${route}.`, 'error', error);
   }
 };
 
@@ -68,8 +75,9 @@ const createHTML = async (
  * @param {string} url Static server URL.
  * @param {string[]} routes Array of routes to generate.
  * @param {string} outDir Output directory.
- * @param {object} launchOpts Puppeteer launch options.
- * @param {object} waitForOpts Puppeteer goto options.
+ * @param {PuppeteerLaunchOpts} launchOpts Puppeteer launch options.
+ * @param {PuppeteerWaitForOpts} waitForOpts Puppeteer goto options.
+ * @param {boolean} prettify Whether to prettify the HTML output.
  */
 export const startPuppeteer = async (
   url: string,
@@ -79,20 +87,27 @@ export const startPuppeteer = async (
   waitForOpts: PuppeteerWaitForOpts,
   prettify: boolean
 ): Promise<void> => {
-  const browser: puppeteer.Browser = await puppeteer.launch(launchOpts);
+  const browser: Browser = await puppeteer.launch(launchOpts);
 
-  for (const route of routes) {
-    try {
-      printMessage(`Processing route ${route}.`, 'info');
+  try {
+    // Start the spinner while processing routes
+    printMessage(null, 'info');
+
+    for (const route of routes) {
       const html = await getHTML(browser, `${url}${route}`, waitForOpts);
 
       if (html) {
-        createHTML(route, html, outDir, prettify);
+        await createHTML(route, html, outDir, prettify);
       }
-    } catch (error) {
-      printMessage(error, 'error', `Error while processing route ${route}.`);
     }
-  }
 
-  await browser.close();
+    // Stop the spinner and print success message after all routes are processed
+    stopSpinner(true);
+    printMessage(generatedRoutes || [], 'success');
+  } catch (error) {
+    stopSpinner(false);
+    printMessage('Error while generating pages.', 'error', error);
+  } finally {
+    await browser.close();
+  }
 };

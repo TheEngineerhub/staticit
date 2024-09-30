@@ -21,10 +21,8 @@ export const startServer = async (port: number, routes: string[], dir: string): 
       });
     }
 
-    app.listen(port, '0.0.0.0', () => {
-      printMessage(`Static server is running.`, 'success');
-    });
+    app.listen(port, '0.0.0.0');
   } catch (error) {
-    printMessage(error, 'error', 'Cannot start static server.');
+    printMessage('Cannot start static server.', 'error', error);
   }
 };

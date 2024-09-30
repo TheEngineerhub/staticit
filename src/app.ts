@@ -8,7 +8,7 @@ import { printMessage } from './utils/cli';
 import { PuppeteerLaunchOpts, PuppeteerWaitForOpts } from './utils/interfaces';
 
 export class Staticit {
-  confName;
+  confName = '';
   config: any = {};
   options = {
     config: '',
@@ -60,7 +60,7 @@ export class Staticit {
         )
       );
     } catch (error) {
-      printMessage(error, 'error', 'Cannot read config file.');
+      printMessage('Cannot read config file.', 'error', error);
       process.exit(0);
     }
   }
@@ -75,7 +75,7 @@ export class Staticit {
         this.puppeteer.waitForOpts = { ...this.config.puppeteer.waitForOpts };
       }
       if (Number.isNaN(parseInt(this.config.port))) {
-        printMessage('Port should be a number, using default port 8080.', 'info');
+        printMessage('Port should be a number, using default port 8080.', 'error');
       } else {
         this.port = +this.config.port;
       }
@@ -89,9 +89,9 @@ export class Staticit {
    */
   private async run(): Promise<void> {
     try {
-      printMessage(`Starting static-it. Ver: ${version}`, 'info');
       this.getConfig();
       this.parseConfig();
+
       await startServer(this.port, this.routes, this.outDir);
       await startPuppeteer(
         `http://localhost:${this.port}`,
@@ -101,10 +101,10 @@ export class Staticit {
         this.puppeteer.waitForOpts,
         this.options.disablePrettier
       );
-      printMessage('Successfully generated static files.', 'success');
+
       process.exit(0);
     } catch (error) {
-      printMessage(error, 'error', 'Stack: ');
+      printMessage(error, 'error');
     }
   }
 }
