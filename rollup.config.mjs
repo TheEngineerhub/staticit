@@ -1,5 +1,4 @@
 import json from '@rollup/plugin-json';
-import dts from 'rollup-plugin-dts';
 import esbuild from 'rollup-plugin-esbuild';
 import pkg from './package.json' assert { type: 'json' };
 
@@ -23,12 +22,5 @@ export default [
         banner: '#!/usr/bin/env node', // Add shebang for node scripts
       },
     ],
-  }),
-  bundle({
-    plugins: [dts()],
-    output: {
-      file: `${name}.d.ts`,
-      format: 'es',
-    },
   }),
 ];
