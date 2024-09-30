@@ -50,6 +50,7 @@ jobs:
             libpangocairo-1.0-0 \
             libxss1 \
             libgtk-3-0 > /dev/null
+          npx puppeteer browsers install chrome
 
       - name: Build project
         run: pnpm build
