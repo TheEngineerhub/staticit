@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/TheEngineerhub/staticit/compare/v1.2.1...v1.3.0) (2024-09-30)
+
+
+### Features
+
+* update deps & better cli output ([a298f2e](https://github.com/TheEngineerhub/staticit/commit/a298f2e797b4fd0dc20b8ed6b8a96d8734a2b90f))
+
+
+### Maintenance
+
+* update workflow ([6f9061e](https://github.com/TheEngineerhub/staticit/commit/6f9061eb30c55548b58b1ef81f9116cbd8f2aff5))
+* use pnpm v9 ([7b3a10f](https://github.com/TheEngineerhub/staticit/commit/7b3a10fd9f1e478284a76d89f1dd42aa101848d3))
+
 ### [1.2.1](https://github.com/TheEngineerhub/staticit/compare/v1.2.0...v1.2.1) (2022-06-11)
 
 
