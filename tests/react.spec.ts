@@ -2,11 +2,12 @@ import finalhandler from 'finalhandler';
 import { createServer, Server } from 'http';
 import { resolve } from 'path';
 import puppeteer from 'puppeteer';
+import type { Page, Browser } from 'puppeteer';
 import serveStatic from 'serve-static';
 import * as shell from 'shelljs';
 
-let page: puppeteer.Page;
-let browser: puppeteer.Browser;
+let page: Page;
+let browser: Browser;
 let server: Server;
 
 describe('React e2e tests', () => {
@@ -18,7 +19,6 @@ describe('React e2e tests', () => {
 
     const serve = serveStatic(`${root}/dist`, { extensions: ['html'] });
     server = createServer(function onRequest(req: any, res: any) {
-      // @ts-ignore
       serve(req, res, finalhandler(req, res));
     });
 
@@ -28,7 +28,7 @@ describe('React e2e tests', () => {
     });
 
     page = await browser.newPage();
-    await server.listen(4444);
+    server.listen(4444);
   });
 
   afterAll(async () => {
