@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.2](https://github.com/TheEngineerhub/staticit/compare/v1.3.1...v1.3.2) (2024-10-01)
+
+
+### Features
+
+* use zolt spinner ([b81a720](https://github.com/TheEngineerhub/staticit/commit/b81a7209a34a08d88ec76b638025eb200e5e7527))
+
+
+### Maintenance
+
+* rollup remove dts ([bba52e3](https://github.com/TheEngineerhub/staticit/commit/bba52e3cfde071342d421e279d06f6b3d76389fa))
+
 ### [1.3.1](https://github.com/TheEngineerhub/staticit/compare/v1.3.0...v1.3.1) (2024-09-30)
 
 ## [1.3.0](https://github.com/TheEngineerhub/staticit/compare/v1.2.1...v1.3.0) (2024-09-30)
